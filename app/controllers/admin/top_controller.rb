@@ -1,5 +1,5 @@
-class Admin::TopController < ApplicationController #rootでnamesapceメソッドを使っているので、adminモジュールを呼び出し
+class Admin::TopController < Admin::Base
   def index
-    raise IpAddressRejected
+   
   end
 end

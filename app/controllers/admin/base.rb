@@ -7,7 +7,7 @@ class Admin::Base < ApplicationController
       end
         
     end
-    
+
     
     helper_method :current_administrator
     

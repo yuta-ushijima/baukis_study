@@ -4,7 +4,6 @@ class Staff::Authenticator
   end
   
   def authenticate(raw_password)
-    @staff_member && #@staff_memberがnilではなく
       !@staff_member.suspended? && #@staff_memberが有効で
       @staff_member.hashed_password && #@staff_memberにパスワードが設定されてて
       @staff_member.start_date <= Date.today && #@staff_memberの開始日が今日以前で

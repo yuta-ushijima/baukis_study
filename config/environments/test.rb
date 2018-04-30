@@ -40,6 +40,6 @@ Rails.application.configure do
   config.baukis = {
     staff: { host: 'baukis.example.com', path: ''},
     admin: { host: 'baukis.example.com', path: 'admin'},
-    customer: { host: 'baukis.example.com', path: 'mypage'}
+    customer: { host: 'example.com', path: 'mypage'}
   }
 end

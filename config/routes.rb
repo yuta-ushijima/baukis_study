@@ -19,9 +19,11 @@ constraints host: config[:admin][:host] do
   end
 end
 
-  namespace :customer do
+constraints host: config[:customer][:host] do
+  namespace :customer, path: config[:customer][:path] do
     root "top#index"
   end
+end
 
   root 'errors#routing_error'
   get '*anything' => 'errors#routing_error'

@@ -1,23 +1,28 @@
 Rails.application.routes.draw do
-  
-  namespace :staff, path: '' do
+  config = Rails.application.config.baukis
+
+constraints host: config[:staff][:host] do
+  namespace :staff, path: config[:staff][:path] do
     root "top#index"
     get 'login' => 'sessions#new', as: :login
-    resource :session, only: [ :create, :destroy ]
-    resource :account, expect: [ :new, :create, :destroy ]
+    resource :session, only: [ :create, :destroy]
+    resource :account, expect: [ :new, :create, :destroy]
   end
-  
-  namespace :admin do
+end
+
+constraints host: config[:admin][:host] do
+  namespace :admin, path: config[:admin][:path] do
     root "top#index"
     get 'login' => 'sessions#new', as: :login
-    resource :session, only: [ :create, :destroy ]
+    resource :session, only: [ :create, :destroy]
     resources :staff_members
   end
-  
+end
+
   namespace :customer do
     root "top#index"
   end
-  
+
   root 'errors#routing_error'
   get '*anything' => 'errors#routing_error'
 end

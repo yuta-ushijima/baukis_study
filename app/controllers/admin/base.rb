@@ -5,10 +5,10 @@ class Admin::Base < ApplicationController
         @current_administrator ||=
           Administrator.find_by(id: session[:administration_id])
       end
-        
+
     end
 
-    
+
     helper_method :current_administrator
-    
+
 end

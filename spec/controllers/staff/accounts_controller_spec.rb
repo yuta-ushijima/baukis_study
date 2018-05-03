@@ -1,4 +1,4 @@
-require 'rails_helper'  
+require 'rails_helper'
 
 describe Staff::AccountsController do
   describe '#update' do
@@ -7,6 +7,7 @@ describe Staff::AccountsController do
 
     before do
       session[:staff_member_id] = staff_member.id
+      session[:last_access_time] =  1.second.ago
     end
 
     it 'email属性を変更する' do

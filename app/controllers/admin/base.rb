@@ -1,5 +1,7 @@
 # encoding: UTF-8
 class Admin::Base < ApplicationController
+  before_action :authorize
+  
   private
     def current_administrator
       if session[:administrator_id]

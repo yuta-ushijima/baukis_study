@@ -8,9 +8,9 @@ RSpec.describe Administrator, :type => :model do
       expect(admin.hashed_password).to be_kind_of(String)
       expect(admin.hashed_password.size).to eq(60)
     end
-    
+
     it "nilを与えるとhashed_passwordはnilになる" do
-      admin = Administration.new(hashed_password: "y")
+      admin = Administrator.new(hashed_password: "y")
       admin.password = nil
       expect(admin.hashed_password).to be_nil
     end

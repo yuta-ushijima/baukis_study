@@ -1,3 +1,4 @@
+# encoding: UTF-8
 FactoryGirl.define do
   factory :staff_member do
     sequence(:email) { |n| "member#{n}@example.com" }

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Staff::SessionsController < Staff::Base
   skip_before_action :authorize
 

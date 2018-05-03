@@ -30,11 +30,11 @@ class Staff::Base < ApplicationController
       end
     end
 
-    TIMEOUT = 60.minute.freeze
+    TIMEOUT = 60.seconds.minute
 
     def check_timeout
       if current_staff_member
-        if session[:last_access_time] >= TIMEOUT.ago
+        if session[:last_access_time] >= TIMEOUT.seconds.ago
           session[:last_access_time] = Time.current
         else
           session.delete(:staff_member_id)

@@ -1,4 +1,9 @@
+# encoding: UTF-8
 require 'rails_helper'
+
+describe Staff::AccountsController , 'ログイン前' do
+    it_behaves_like 'a protected singular staff controller'
+end
 
 describe Staff::AccountsController do
   describe '#update' do

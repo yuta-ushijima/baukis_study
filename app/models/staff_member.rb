@@ -3,7 +3,7 @@ class StaffMember < ActiveRecord::Base
     # バリデーションが行われる前にStaffMemberオブジェクトに対して、以下がコールバックされる
     self.email_for_index = email.downcase if email
   end
-  
+
   def password=(raw_password)
     # kind_ofメソッドを使って文字列かどうかを判定し、trueなら
     #  BCrypt::Password.createでそのハッシュ値を生成し、それをhashed_passwordにセットする
@@ -13,5 +13,9 @@ class StaffMember < ActiveRecord::Base
       self.hashed_password = nil
     end
   end
-        
+
+  def active?
+    !suspended? && start_date <= Date.today &&
+      (end_date.nil? || end_date > Date.today)
+  end
 end

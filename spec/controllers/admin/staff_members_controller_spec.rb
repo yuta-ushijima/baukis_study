@@ -1,8 +1,23 @@
 # encoding: UTF-8
 require 'rails_helper'
 
+describe Admin::StaffMembersController, 'ログイン前' do
+  # 上記は以下のようにも書ける。
+  # describe Admin::StaffMembersController do
+  #   context 'ログイン前' do
+  #     it_behaves_like 'a protected admin controller'
+  # end
+  it_behaves_like 'a protected admin controller'
+end
+
 describe Admin::StaffMembersController do
   let(:params_hash) { attributes_for(:staff_member)}
+  let(:administrator) { create(:administrator)}
+
+  before do
+    session[:administrator_id] = administrator.id
+    session[:last_access_time] = 1.second.ago
+  end
 
   describe '#create' do
     it '職員一覧ページにリダイレクト' do

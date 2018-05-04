@@ -1,4 +1,7 @@
+# encoding: UTF-8
 class Staff::SessionsController < Staff::Base
+  skip_before_action :authorize
+
   def new
     if current_staff_member
       redirect_to :staff_root
@@ -7,7 +10,7 @@ class Staff::SessionsController < Staff::Base
       render action: 'new'
     end
   end
-  
+
   def create
     @form = Staff::LoginForm.new(params[:staff_login_form])
     if @form.email.present?
@@ -19,6 +22,7 @@ class Staff::SessionsController < Staff::Base
         render action: 'new'
       else
         session[:staff_member_id] = staff_member.id
+        session[:last_access_time] = Time.current
         flash.notice = "ログインしました。"
         redirect_to :staff_root
       end
@@ -27,11 +31,11 @@ class Staff::SessionsController < Staff::Base
       render action: 'new'
     end
   end
-  
+
   def destroy
     session.delete(:staff_member_id)
     flash.notice = "ログアウトしました。"
     redirect_to :staff_root
   end
-  
+
 end

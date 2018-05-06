@@ -18,6 +18,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "nokogiri", "~> 1.6.1"
 gem "rails-i18n", "~> 4.0.1"
 gem 'rake', '< 11.0'
+gem 'foreigner', '~> 1.6.1'
 
 group :test do
   gem "rspec-rails", "~> 3.0.0"

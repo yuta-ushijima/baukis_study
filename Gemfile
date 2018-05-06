@@ -19,6 +19,7 @@ gem "nokogiri", "~> 1.6.1"
 gem "rails-i18n", "~> 4.0.1"
 gem 'rake', '< 11.0'
 gem 'foreigner', '~> 1.6.1'
+gem 'kaminari', '~> 0.15.1' # ページネーション
 
 group :test do
   gem "rspec-rails", "~> 3.0.0"

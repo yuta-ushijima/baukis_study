@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 ruby "2.1.2"
 
 
@@ -18,6 +18,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem "nokogiri", "~> 1.6.1"
 gem "rails-i18n", "~> 4.0.1"
 gem 'rake', '< 11.0'
+gem 'foreigner', '~> 1.6.1'
+gem 'kaminari', '~> 0.15.1' # ページネーション
+gem 'quiet_assets', '~> 1.0.2', group: :development # cssやjsファイルのアクセスログを制御
 
 group :test do
   gem "rspec-rails", "~> 3.0.0"

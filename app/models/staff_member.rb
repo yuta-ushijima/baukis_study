@@ -1,4 +1,7 @@
 class StaffMember < ActiveRecord::Base
+  has_many :events, class_name: 'StaffEvent', dependent: :destroy
+  # 次の書き方でも同じ動作をする  has_many :StaffEvent, dependent: destroy
+
   before_validation do
     # バリデーションが行われる前にStaffMemberオブジェクトに対して、以下がコールバックされる
     self.email_for_index = email.downcase if email

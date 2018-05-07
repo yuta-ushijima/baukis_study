@@ -4,6 +4,7 @@ class Admin::StaffMembersController < Admin::Base
 
   def  index
     @staff_members = StaffMember.order(:family_name_kana, :given_name_kana)
+      .page(params[:page])
   end
 
   def show
@@ -48,7 +49,7 @@ class Admin::StaffMembersController < Admin::Base
 
 
   private
-  
+
     def staff_member_params
       params.require(:staff_member).permit(
         :email, :password, :family_name, :given_name,

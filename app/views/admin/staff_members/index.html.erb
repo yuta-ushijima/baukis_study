@@ -23,8 +23,8 @@
        <% p = StaffMemberPresenter.new(m, self) %>
        <!-- 第一引数のmはStaffMemberオブジェクト、第二引数は擬似変数selfで、ビューコンテキストと呼ばれ、Railsで定義されたすべてのヘルパーメソッドを自分のメソッドとして持っている -->
       <tr>
-        <td><%= m.family_name %><%= m.given_name %></td>
-        <td><%= m.family_name_kana %><%= m.given_name_kana %></td>
+        <td><%= p.full_name %></td>
+        <td><%= p.full_name_kana %></td>
         <td class="email"><%= m.email %></td>
         <td class="date"><%= m.start_date.strftime('%Y/%m/%d') %></td>
         <!--  tryメソッドでnilを考慮-->

@@ -4,6 +4,14 @@ class StaffMemberPresenter < ModelPresenter
   # Off:BALLOT BOX(U+2610)
   delegate :suspended?, to: :object
 
+  def full_name
+    object.family_name + ' ' + object.given_name
+  end
+
+  def full_name_kana
+    object.family_name_kana + ' ' + object.given_name_kana
+  end
+
   def suspended_mark
     #　もともとは、baukis_study/app/views/admin/staff_members/index.html.erbでm.suspended? ? raw('&#x2611;') : raw('&#x2610')として定義されていた
     # view内で定義されている変数mをobjectで置き換え。

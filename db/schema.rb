@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20180508235404) do
     t.string   "postal_code",                 null: false
     t.string   "prefecture",                  null: false
     t.string   "city",                        null: false
-    t.string   "addresses1",                  null: false
-    t.string   "addresses2",                  null: false
+    t.string   "address1",                    null: false
+    t.string   "address2",                    null: false
     t.string   "company_name",  default: " ", null: false
     t.string   "division_name", default: " ", null: false
     t.datetime "created_at"

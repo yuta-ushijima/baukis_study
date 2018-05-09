@@ -50,16 +50,16 @@ company_names = %w(OIAX ABC XYZ)
       postal_code: sprintf('%07d', rand(10000000)),
       prefecture: Address::PREFECTURE_NAMES.sample,
       city: city_names.sample,
-      addresses1: '開発1-2-3',
-      addresses2: 'レイルズハイツ301号室'
+      address1: '開発1-2-3',
+      address2: 'レイルズハイツ301号室'
     )
     if m % 3 == 0
       c.create_work_address!(
         postal_code: sprintf('%07d', rand(10000000)),
         prefecture: Address::PREFECTURE_NAMES.sample,
         city: city_names.sample,
-        addresses1: '試験4-5-6',
-        addresses2: 'ルビービル2F',
+        address1: '試験4-5-6',
+        address2: 'ルビービル2F',
         company_name: company_names.sample
       )
     end

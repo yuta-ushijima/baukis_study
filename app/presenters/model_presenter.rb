@@ -9,4 +9,13 @@ class ModelPresenter
     @object = object
     @view_context = view_context
   end
+
+  # 顧客情報詳細をERBテンプレートに埋め込むために使用
+  def created_at
+    object.created_at.try(:strftime, '%Y/%m/%d %H:%M:%S')
+  end
+
+  def updated_at
+    object.updated_at.try(:strftime, '%Y/%m/%d %H:%M:%S')
+  end
 end

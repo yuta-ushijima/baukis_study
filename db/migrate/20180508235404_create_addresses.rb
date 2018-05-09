@@ -6,8 +6,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.string      :postal_code, null: false                     #郵便番号
       t.string      :prefecture,  null: false                      # 都道府県
       t.string      :city,  null: false                               #市区町村
-      t.string     :addresses1, null: false                     #町域、番地など
-      t.string    :addresses2, null: false                       # 建物名、部屋番号など
+      t.string     :address1, null: false                     #町域、番地など
+      t.string    :address2, null: false                       # 建物名、部屋番号など
       t.string    :company_name,  null: false, default: ' '       #会社名
       t.string    :division_name, null: false, default: ' '       #部署名
 

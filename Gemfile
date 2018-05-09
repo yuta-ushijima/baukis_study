@@ -20,6 +20,8 @@ gem "rails-i18n", "~> 4.0.1"
 gem 'rake', '< 11.0'
 gem 'foreigner', '~> 1.6.1'
 gem 'kaminari', '~> 0.15.1' # ページネーション
+gem 'date_validator', '~> 0.7.0'
+gem 'email_validator', '~> 1.4.0'
 gem 'quiet_assets', '~> 1.0.2', group: :development # cssやjsファイルのアクセスログを制御
 
 group :test do

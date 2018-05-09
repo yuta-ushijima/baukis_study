@@ -18,16 +18,19 @@
       <th>停止フラグ</th>
       <th>アクション</th>
     </tr>
+    <!-- @staff_membersにセットされた職員リストからStaffMemberオブジェクトを取り出す -->
     <% @staff_members.each do |m| %>
+       <% p = StaffMemberPresenter.new(m, self) %>
+       <!-- 第一引数のmはStaffMemberオブジェクト、第二引数は擬似変数selfで、ビューコンテキストと呼ばれ、Railsで定義されたすべてのヘルパーメソッドを自分のメソッドとして持っている -->
       <tr>
-        <td><%= m.family_name %><%= m.given_name %></td>
-        <td><%= m.family_name_kana %><%= m.given_name_kana %></td>
+        <td><%= p.full_name %></td>
+        <td><%= p.full_name_kana %></td>
         <td class="email"><%= m.email %></td>
         <td class="date"><%= m.start_date.strftime('%Y/%m/%d') %></td>
         <!--  tryメソッドでnilを考慮-->
         <td class="date"><%= m.end_date.try(:strftime, '%Y/%m/%d') %></td>
         <!--  rawメソッドでエスケープ処理を抑制-->
-        <td class="boolean"><%= m.suspended? ? raw('&#x2611;') : raw('&#x2610') %></td>
+        <td class="boolean"><%= p.suspended_mark %></td>
         <td class="actions">
           <%= link_to '編集', [ :edit, :admin, m] %> |
           <%= link_to 'Events', [ :admin, m, :staff_events ] %>  |

@@ -8,6 +8,7 @@ constraints host: config[:staff][:host] do
     resource :session, only: [ :create, :destroy]
     resource :account, except: [ :new, :create ]
     resource :password, only: [ :show, :edit, :update]
+    resources :customers
   end
 end
 

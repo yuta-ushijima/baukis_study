@@ -6,7 +6,7 @@ constraints host: config[:staff][:host] do
     root "top#index"
     get 'login' => 'sessions#new', as: :login
     resource :session, only: [ :create, :destroy]
-    resource :account, except: [ :new, :create ]
+    resource :account, except: [ :new, :create, :destroy ]
     resource :password, only: [ :show, :edit, :update]
     resources :customers
   end

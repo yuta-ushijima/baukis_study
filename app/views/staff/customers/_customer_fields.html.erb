@@ -1,4 +1,4 @@
-<%= f.feilds_for :customer, f.object.customer do |ff| %>
+<%= f.fields_for :customer, f.object.customer do |ff| %>
   <%= markup do |m|
     p = CustomerFormPresenter.new(ff, self)
     p.with_options(required: true) do |q|

@@ -42,7 +42,7 @@ company_names = %w(OIAX ABC XYZ)
       family_name_kana: fn[1],
       given_name_kana: gn[1],
       password: 'password',
-      birthday: 60.years.ago.advance(seconds: rand(40.years)).to_date,
+      birthday: 60.years.ago.advance(seconds: rand(40.years.to_i)).to_date,
       gender: m < 5 ? 'male' : 'female'
     )
 

@@ -1,4 +1,4 @@
-<%= f.fields_for :home_address, f.object.home_address do |ff| %>
+<%= f.fields_for :home_address, f.object.customer.home_address do |ff| %>
   <%= markup do |m|
     p = AddressFormPresenter.new(ff, self)
     p.with_options(required: true) do |q|
@@ -8,6 +8,6 @@
       m << q.text_field_block(:city, '市区町村', size:  16)
       m << q.text_field_block(:address1, '町域、番地など', size: 40)
     end
-    m << q.text_field_block(:address2, '建物名、部屋番号など', size: 40)
+    m << p.text_field_block(:address2, '建物名、部屋番号など', size: 40)
   end %>
 <% end %>

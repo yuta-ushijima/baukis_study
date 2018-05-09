@@ -12,6 +12,6 @@ class Staff::CustomersController < Staff::Base
   end
 
   def edit
-    @customer_form = Staff::CustomerForm(Customer.find(params[:id]))
+    @customer_form = Staff::CustomerForm.new(Customer.find(params[:id]))
   end
 end

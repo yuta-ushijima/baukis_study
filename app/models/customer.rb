@@ -1,8 +1,10 @@
 class Customer < ActiveRecord::Base
+  # home_addressとcustomerを1対1の関連付け
+  # autosaveオプションにtrueを指定することで常にCistomerオブジェクトがデータベースに保存される前に、関連づけられたオブジェクトも自動的にDBへ保存される。
+  has_one :home_address, dependent: :destroy, autosave: true
+  # work_addressとcustomerを1対1の関連付け
 
-  has_one :home_address, dependent: :destroy # home_addressとcustomerを1対1の関連付け
-  has_one :work_address, dependent: :destroy # work_addressとcustomerを1対1の関連付け
-
+  has_one :work_address, dependent: :destroy, autosave: true
   before_validation do
     self.email_for_index = email.downcase if email
     self

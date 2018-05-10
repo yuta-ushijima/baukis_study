@@ -2,6 +2,7 @@ class StaffMember < ActiveRecord::Base
   # include StringNormalizer #=>EmailHolderへ移管
   include EmailHolder
   include PersonalNameHolder
+  include PasswordHolder
 
   has_many :events, class_name: 'StaffEvent', dependent: :destroy
   # 次の書き方でも同じ動作をする  has_many :StaffEvent, dependent: destroy
@@ -50,15 +51,15 @@ class StaffMember < ActiveRecord::Base
   #   end
   # end
 
-  def password=(raw_password)
-    # kind_ofメソッドを使って文字列かどうかを判定し、trueなら
-    #  BCrypt::Password.createでそのハッシュ値を生成し、それをhashed_passwordにセットする
-    if raw_password.kind_of?(String)
-      self.hashed_password = BCrypt::Password.create(raw_password)
-      elsif raw_password.nil?
-      self.hashed_password = nil
-    end
-  end
+  # def password=(raw_password)#=> PasswordHolderに移管
+  #   # kind_ofメソッドを使って文字列かどうかを判定し、trueなら
+  #   #  BCrypt::Password.createでそのハッシュ値を生成し、それをhashed_passwordにセットする
+  #   if raw_password.kind_of?(String)
+  #     self.hashed_password = BCrypt::Password.create(raw_password)
+  #     elsif raw_password.nil?
+  #     self.hashed_password = nil
+  #   end
+  # end
 
   def active?
     !suspended? && start_date <= Date.today &&

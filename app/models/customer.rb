@@ -1,6 +1,7 @@
 class Customer < ActiveRecord::Base
   include EmailHolder
   include PersonalNameHolder
+  include PasswordHolder
   # home_addressとcustomerを1対1の関連付け
   # autosaveオプションにtrueを指定することで常にCistomerオブジェクトがデータベースに保存される前に、関連づけられたオブジェクトも自動的にDBへ保存される。
   has_one :home_address, dependent: :destroy, autosave: true
@@ -20,11 +21,11 @@ class Customer < ActiveRecord::Base
     allow_blank: true
   }
 
-  def password=(raw_password)
-    if raw_password.kind_of?(String)
-      self.hashed_password = BCrypt::Password.create(raw_password)
-    elsif raw_password.nil?
-      self.hashed_password = nil
-    end
-  end
+  # def password=(raw_password) #=>PasswordHolderに移管
+  #   if raw_password.kind_of?(String)
+  #     self.hashed_password = BCrypt::Password.create(raw_password)
+  #   elsif raw_password.nil?
+  #     self.hashed_password = nil
+  #   end
+  # end
 end

@@ -8,6 +8,13 @@ class Customer < ActiveRecord::Base
     self
   end
 
+  validates :gender, inclusion: { in: %w(male female), allow_blank: true}
+  validates :birthday, date: {
+    after: Date.new(1900, 1, 1),
+    before: -> (obj) { Date.today },
+    allow_blank: true
+  }
+
   def password=(raw_password)
     if raw_password.kind_of?(String)
       self.hashed_password = BCrypt::Password.create(raw_password)

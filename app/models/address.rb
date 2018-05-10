@@ -1,7 +1,15 @@
 # encoding: UTF-8
 class Address < ActiveRecord::Base
+  include StringNormalizer
 
   belongs_to :customer # belongs_toでcustomerモデルを参照している
+
+  before_validation do
+    self.postal_code = normalize_as_postal_code(postal_code)
+    self.city = normalize_as_name(city)
+    self.address1 = normalize_as_name(address1)
+    self.address2 = normalize_as_name(address2)
+  end
 
   # seed投入や都道府県名のドロップダウンリストの生成用
   PREFECTURE_NAMES = %w(
@@ -16,4 +24,7 @@ class Address < ActiveRecord::Base
     沖縄県
     日本国外
   )
+
+  validates :postal_code, format: { with: /\Ad{7}\z/, allow_blank: true }
+  validates :prefecture, inclusion: { in: PREFECTURE_NAMES, allow_blank: true}
 end

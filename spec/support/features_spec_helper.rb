@@ -1,5 +1,5 @@
 # encoding: UTF-8
-module FeatureSpecHelper
+module FeaturesSpecHelper
 
   def switch_namespace(namespace)
     config = Rails.application.config.baukis

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature '職員による顧客管理' do
-  include FeatureSpecHelper
+  include FeaturesSpecHelper
   # letでメモ化されたヘルパーメソッドを定義。
   let(:staff_member) { create(:staff_member) }
   # customerをlet!で即時オブジェクトを作成している理由は、expectメソッドまでcustomerオブジェクトが呼び出されないので、click_button '更新'までに少なくとも1つのcustomerオブジェクトがDBに保存されていないと、testがパスしないため。
@@ -80,9 +80,9 @@ feature '職員による顧客管理' do
     click_button '更新'
 
     expect(page).to have_css('header span.alert')
-    expect(page).to have_css(
-      'div.field_with_errors input#form_customer_birthday')
-    expect(page).to have_css(
-      'div.field_with_errors input#form_address_postal_code')
+      expect(page).to have_css(
+        'div.field_with_errors input#form_customer_birthday')
+      expect(page).to have_css(
+        'div.field_with_errors input#form_home_address_postal_code')
   end
 end

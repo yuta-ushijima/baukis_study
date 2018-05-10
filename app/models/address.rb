@@ -24,7 +24,4 @@ class Address < ActiveRecord::Base
     沖縄県
     日本国外
   )
-
-  validates :postal_code, format: { with: /\Ad{7}\z/, allow_blank: true }
-  validates :prefecture, inclusion: { in: PREFECTURE_NAMES, allow_blank: true}
 end

@@ -20,7 +20,6 @@ class Staff::CustomerForm
 
   def assign_attributes(params = {})
     @params = params
-
     customer.assign_attributes(customer_params)
     customer.home_address.assign_attributes(home_address_params)
     customer.work_address.assign_attributes(work_address_params)

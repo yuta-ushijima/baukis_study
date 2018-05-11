@@ -71,7 +71,7 @@ class FormPresenter
    end
  end
 
- private
+ # private => customer_fieldsテンプレートで電話番号の入力欄生成のた目に呼びだしているので、publicメソッドとして松鶴させる。
     def decorated_label(name, label_text, options = {})
       label(name, label_text, class: options [:required] ? 'required' : nil)
     end

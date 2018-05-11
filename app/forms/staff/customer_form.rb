@@ -10,6 +10,9 @@ class Staff::CustomerForm
     # 引数customerが指定されていない場合は、Customer.newでeCustomerオブジェクトを作成。
     # 初期値には、gender属性をmaleに指定。
     @customer ||= Customer.new(gender: 'male')
+    (2 - @customer.personal_phones.size).times do
+      @customer.personal_phones.build
+    end
     # 顧客アカウント編集時における2つのチェックボックスの初期状態を変更
     self.inputs_home_address = @customer.home_address.present?
     self.inputs_work_address = @customer.work_address.present?

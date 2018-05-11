@@ -30,11 +30,25 @@ class Staff::CustomerForm
     self.inputs_work_address  = params[:inputs_work_address] == '1'
 
     customer.assign_attributes(customer_params)
+
+    phones = phone_params(:customer).fetch(:phones)
+    customer.personal_phones.size.times do |index|
+      attributes = phones[index.to_s] #attributesの中身=> { 'number' => '090-1234-5678', 'primary' => '1' }
+      if attributes && attributes[:number].present?
+        # 中身があればassign_attributesメソッドで属性に値をセット
+        customer.personal_phones[index].assign_attributes(attributes)
+      else
+        # 中身がなければmark_for_destructionメソッドでオブジェクトに削除対象のマーキング
+        customer.personal_phones[index].mark_for_destruction
+      end
+    end
+
     if inputs_home_address
       customer.home_address.assign_attributes(home_address_params)
     else
       customer.home_address.mark_for_destruction
     end
+
     if inputs_work_address
       customer.work_address.assign_attributes(work_address_params)
     else
@@ -82,5 +96,20 @@ class Staff::CustomerForm
         :postal_code, :prefecture, :city, :address1, :address2,
         :company_name, :division_name
       )
+    end
+
+    def phone_params(record_name)
+      # 個人番号、自宅番号、勤務先番号でメソッドを共有するために、
+      # phone_paramsにキーワード引数を設定
+      # permitで許可しているパラメータは次の条件を満たすものだけ
+      # 1. phonesパラメータの値がハッシュ
+      # 2. ハッシュの各キーが、0,1,2などの数字
+      # 3.そのハッシュの各値がハッシュ(2,3を合わせて一つのハッシュである二次元ハッシュ)
+      # 4.内側のハッシュの各キーはnumberまたはprimary
+      # 許可されるハッシュの例
+      # { '0' => { 'number' => '090-1234-5678', 'primary' => '1'},
+      #   '1' => { 'number' => ' ', 'primary' => '0'}
+      # }
+      @params.require(record_name).permit(phones: [ :number, :primary])
     end
 end

@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180506125653) do
+ActiveRecord::Schema.define(version: 20180508235404) do
+
+  create_table "addresses", force: true do |t|
+    t.integer  "customer_id",                 null: false
+    t.string   "type",                        null: false
+    t.string   "postal_code",                 null: false
+    t.string   "prefecture",                  null: false
+    t.string   "city",                        null: false
+    t.string   "address1",                    null: false
+    t.string   "address2",                    null: false
+    t.string   "company_name",  default: " ", null: false
+    t.string   "division_name", default: " ", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "addresses", ["customer_id"], name: "index_addresses_on_customer_id", using: :btree
+  add_index "addresses", ["type", "customer_id"], name: "index_addresses_on_type_and_customer_id", unique: true, using: :btree
 
   create_table "administrators", force: true do |t|
     t.string   "email",                           null: false
@@ -23,6 +40,23 @@ ActiveRecord::Schema.define(version: 20180506125653) do
   end
 
   add_index "administrators", ["email_for_index"], name: "index_administrators_on_email_for_index", unique: true, using: :btree
+
+  create_table "customers", force: true do |t|
+    t.string   "email",            null: false
+    t.string   "email_for_index",  null: false
+    t.string   "family_name",      null: false
+    t.string   "given_name",       null: false
+    t.string   "family_name_kana", null: false
+    t.string   "given_name_kana",  null: false
+    t.string   "gender"
+    t.date     "birthday"
+    t.string   "hashed_password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "customers", ["email_for_index"], name: "index_customers_on_email_for_index", unique: true, using: :btree
+  add_index "customers", ["family_name_kana", "given_name_kana"], name: "index_customers_on_family_name_kana_and_given_name_kana", using: :btree
 
   create_table "staff_events", force: true do |t|
     t.integer  "staff_member_id", null: false
@@ -50,6 +84,8 @@ ActiveRecord::Schema.define(version: 20180506125653) do
 
   add_index "staff_members", ["email_for_index"], name: "index_staff_members_on_email_for_index", unique: true, using: :btree
   add_index "staff_members", ["family_name_kana", "given_name_kana"], name: "index_staff_members_on_family_name_kana_and_given_name_kana", using: :btree
+
+  add_foreign_key "addresses", "customers", name: "addresses_customer_id_fk"
 
   add_foreign_key "staff_events", "staff_members", name: "staff_events_staff_member_id_fk"
 

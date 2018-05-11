@@ -14,7 +14,8 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-
+/vendor
+/vander
 /vender
 config/database.yml
 .ruby-version

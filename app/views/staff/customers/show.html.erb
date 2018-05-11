@@ -27,7 +27,7 @@
     <% if @customer.work_address %>
       <% p3 = AddressPresenter.new(@customer.work_address, self) %>
       <tr><th colspan="2">勤務先</th></tr>
-      <tr><th>会社名</th><%= p3.company_name %><td></td></tr>
+      <tr><th>会社名</th><td><%= p3.company_name %></td></tr>
       <tr><th>部署名</th><td><%= p3.division_name %></td></tr>
       <tr><th>郵便番号</th><td><%= p3.postal_code %></td></tr>
       <tr><th>都道府県</th><td><%= p3.prefecture %></td></tr>

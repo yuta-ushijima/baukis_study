@@ -1,9 +1,8 @@
 # encoding: UTF-8
 class Staff::CustomersController < Staff::Base
   def index
-    @search_form = Staff::CustomerSearchForm.new
-    @customers = Customer.order(:family_name_kana, :given_name_kana)
-      .page(params[:page])
+    @search_form = Staff::CustomerSearchForm.new(params[:search])
+    @customers = @search_form.search.page(params[:page])
   end
 
   def show

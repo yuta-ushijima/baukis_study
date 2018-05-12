@@ -1,3 +1,6 @@
+<!--  asオプションの指定により、フォームから送信されるパラメータはprefixに'search'が付帯する。
+そのため、params[:search]でフォームの各フィールドに入力された値をハッシュとして取得できる。
+-->
 <%= form_for @search_form, as: 'search', url: :staff_customers,
         html: { method: :get, class: 'search'} do |f| %>
 

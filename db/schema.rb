@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180511234329) do
+ActiveRecord::Schema.define(version: 20180512031705) do
 
   create_table "addresses", force: true do |t|
     t.integer  "customer_id",                 null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180511234329) do
 
   add_index "addresses", ["city"], name: "index_addresses_on_city", using: :btree
   add_index "addresses", ["customer_id"], name: "index_addresses_on_customer_id", using: :btree
+  add_index "addresses", ["postal_code"], name: "index_addresses_on_postal_code", using: :btree
   add_index "addresses", ["prefecture", "city"], name: "index_addresses_on_prefecture_and_city", using: :btree
   add_index "addresses", ["type", "city"], name: "index_addresses_on_type_and_city", using: :btree
   add_index "addresses", ["type", "customer_id"], name: "index_addresses_on_type_and_customer_id", unique: true, using: :btree
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180511234329) do
   add_index "customers", ["birth_year", "given_name_kana"], name: "index_customers_on_birth_year_and_given_name_kana", using: :btree
   add_index "customers", ["email_for_index"], name: "index_customers_on_email_for_index", unique: true, using: :btree
   add_index "customers", ["family_name_kana", "given_name_kana"], name: "index_customers_on_family_name_kana_and_given_name_kana", using: :btree
+  add_index "customers", ["gender", "family_name_kana", "given_name_kana"], name: "index_customers_on_gender_and_furigana", using: :btree
   add_index "customers", ["given_name_kana"], name: "index_customers_on_given_name_kana", using: :btree
 
   create_table "phones", force: true do |t|
@@ -82,10 +84,12 @@ ActiveRecord::Schema.define(version: 20180511234329) do
     t.boolean  "primary",          default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "last_four_digits"
   end
 
   add_index "phones", ["address_id"], name: "index_phones_on_address_id", using: :btree
   add_index "phones", ["customer_id"], name: "index_phones_on_customer_id", using: :btree
+  add_index "phones", ["last_four_digits"], name: "index_phones_on_last_four_digits", using: :btree
   add_index "phones", ["number_for_index"], name: "index_phones_on_number_for_index", using: :btree
 
   create_table "staff_events", force: true do |t|

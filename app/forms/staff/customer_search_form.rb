@@ -3,8 +3,9 @@ class Staff::CustomerSearchForm
   include StringNormalizer
 
   attr_accessor :family_name_kana, :given_name_kana,
-                  :birth_year, :birth_month, :birth_mday,
-                  :address_type, :prefecture, :city, :phone_number
+                  :birth_year, :birth_month, :birth_mday, :gender,
+                  :postal_code, :address_type, :prefecture, :city,
+                  :phone_number, :last_four_digits
 
   def search
     normalize_values
@@ -20,8 +21,9 @@ class Staff::CustomerSearchForm
     rel = rel.where(birth_year: birth_year) if birth_year.present?
     rel = rel.where(birth_month: birth_month) if birth_month.present?
     rel = rel.where(birth_mday: birth_mday) if birth_mday.present?
+    rel = rel.where(gender: gender) if gender.present?
 
-    if prefecture.present? || city.present?
+    if prefecture.present? || city.present? || postal_code.present?
       case address_type #=> address_typeには空文字/home/workの文字列がセットされているので、その値によってcase文で処理を切り替える。
       when 'home'
         rel = rel.joins(:home_address)
@@ -36,7 +38,20 @@ class Staff::CustomerSearchForm
         # addressses.prefectureというカラムを対象とする検索条件を追加
         rel = rel.where('addresses.prefecture' => prefecture)
       end
-        rel = rel.where('addresses.city' => city) if city.present?
+      rel = rel.where('addresses.city' => city) if city.present?
+      if postal_code.present?
+        rel = rel.where('addresses.postal_code' => postal_code)
+      end
+    end
+
+    if phone_number.present? || last_four_digits.present?
+      rel = rel.joins(:phones)
+      if phone_number.present?
+        rel = rel.where('phones.number_for_index' => phone_number)
+      end
+      if last_four_digits.present?
+        rel = rel.where('phones.last_four_digits' => last_four_digits)
+      end
     end
 
     rel = rel.distinct
@@ -55,7 +70,7 @@ class Staff::CustomerSearchForm
       self.family_name_kana = normalize_as_furigana(family_name_kana)
       self.given_name_kana = normalize_as_furigana(given_name_kana)
       self.city = normalize_as_name(city)
-      # self.postal_code = normalize_as_postal_code(postal_code)
+      self.postal_code = normalize_as_postal_code(postal_code)
       self.phone_number = normalize_as_phone_number(phone_number)
         .try(:gsub, /\D/, '')
     end

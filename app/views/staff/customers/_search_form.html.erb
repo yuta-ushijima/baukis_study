@@ -13,6 +13,10 @@
           (1900..Time.current.year).to_a.reverse)
     m << p.drop_down_list_block(:birth_month, '誕生月: ', 1..12)
     m << p.drop_down_list_block(:birth_mday, '誕生日: ', 1..31)
+    m.div do
+      m << p.drop_down_list_block(:gender, '性別',
+          [ [ '男性', 'male' ], [ '女性', 'female' ] ])
+    end
     m.br
     m.div do
       m << p.drop_down_list_block(:address_type, '住所の検索範囲: ',
@@ -20,8 +24,12 @@
     end
     m << p.drop_down_list_block(:prefecture, '都道府県: ',
           Address::PREFECTURE_NAMES)
+    m << p.text_field_block(:city, '市区町村: ')
     m.br
+    m << p.text_field_block(:postal_code, '郵便番号: ', size: 7)
     m << p.text_field_block(:phone_number, '電話番号: ')
+    m << p.text_field_block(:last_four_digits, '電話番号4桁:', size: 4)
+    m.br
     m << f.submit('検索')
   end %>
 <% end %>

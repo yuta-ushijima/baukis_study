@@ -2,12 +2,23 @@ class Customer < ActiveRecord::Base
   include EmailHolder
   include PersonalNameHolder
   include PasswordHolder
+
+  # 簡略化した書き方
+  # home_addressとwork_addressはcustomerの子クラスなので、
+  # 1対多の関係であるaddressesモデルでdependedt: :destroyを指定すれば、
+  # 2つのオブジェクトを一挙に削除する
+  # コードの簡略化と処理回数を減らせるメリットがある  
+  has_many :addresses, dependent: :destroy
+  has_one :home_address, autosave: true
+  has_one :work_address,  autosave: true
+
+  # has_many :addresses #=> 検索でしか使わないので、autosaveオプションは不要
   # home_addressとcustomerを1対1の関連付け
   # autosaveオプションにtrueを指定することで常にCistomerオブジェクトがデータベースに保存される前に、関連づけられたオブジェクトも自動的にDBへ保存される。
-  has_one :home_address, dependent: :destroy, autosave: true
-  # work_addressとcustomerを1対1の関連付け
-  has_one :work_address, dependent: :destroy, autosave: true
-  has_many :phones, dependent: :destroy
+  # has_one :home_address, dependent: :destroy, autosave: true
+  # # work_addressとcustomerを1対1の関連付け
+  # has_one :work_address, dependent: :destroy, autosave: true
+  # has_many :phones, dependent: :destroy
   # ->でProcオブジェクトでブロックを作成し、has_manyの第二引数に指定することで、
   # 関連付けのスコープを作成。(検索の付帯条件)
   # ここでの検索の付帯条件は個人電話番号だけの絞り込み(address_idがnullのもの)に使われている

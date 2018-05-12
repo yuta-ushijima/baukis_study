@@ -7,10 +7,11 @@ class Customer < ActiveRecord::Base
   # home_addressとwork_addressはcustomerの子クラスなので、
   # 1対多の関係であるaddressesモデルでdependedt: :destroyを指定すれば、
   # 2つのオブジェクトを一挙に削除する
-  # コードの簡略化と処理回数を減らせるメリットがある  
+  # コードの簡略化と処理回数を減らせるメリットがある
   has_many :addresses, dependent: :destroy
   has_one :home_address, autosave: true
   has_one :work_address,  autosave: true
+  has_many :phones, dependent: :destroy
 
   # has_many :addresses #=> 検索でしか使わないので、autosaveオプションは不要
   # home_addressとcustomerを1対1の関連付け

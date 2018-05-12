@@ -7,7 +7,7 @@ class Staff::CustomerSearchForm
                   :address_type, :prefecture, :city, :phone_number
 
   def search
-    # normalize_values
+    normalize_values
 
     rel = Customer
 
@@ -55,6 +55,8 @@ class Staff::CustomerSearchForm
       self.family_name_kana = normalize_as_furigana(family_name_kana)
       self.given_name_kana = normalize_as_furigana(given_name_kana)
       self.city = normalize_as_name(city)
-      self.phone_number = normalize_as_phone_number(phone_number).try(:gsub, /\D, ' '/)
+      # self.postal_code = normalize_as_postal_code(postal_code)
+      self.phone_number = normalize_as_phone_number(phone_number)
+        .try(:gsub, /\D/, '')
     end
 end

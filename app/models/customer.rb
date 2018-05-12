@@ -27,6 +27,14 @@ class Customer < ActiveRecord::Base
     allow_blank: true
   }
 
+  before_save do
+    if birthday#=> birthdayオブジェクトにはDateオブジェクトまたはnilがセットされているので、nilでなければ以下の処理を実行
+      self.birth_year = birthday.year #=> 日付の年を取得
+      self.birth_month = birthday.month #=> 日付の月を取得
+      self.birth_mday = birthday.mday #=> 日付の日を取得
+    end
+  end
+
   # def password=(raw_password) #=>PasswordHolderに移管
   #   if raw_password.kind_of?(String)
   #     self.hashed_password = BCrypt::Password.create(raw_password)

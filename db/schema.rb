@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508235404) do
+ActiveRecord::Schema.define(version: 20180511082559) do
 
   create_table "addresses", force: true do |t|
     t.integer  "customer_id",                 null: false
@@ -58,6 +58,20 @@ ActiveRecord::Schema.define(version: 20180508235404) do
   add_index "customers", ["email_for_index"], name: "index_customers_on_email_for_index", unique: true, using: :btree
   add_index "customers", ["family_name_kana", "given_name_kana"], name: "index_customers_on_family_name_kana_and_given_name_kana", using: :btree
 
+  create_table "phones", force: true do |t|
+    t.integer  "customer_id",                      null: false
+    t.integer  "address_id"
+    t.string   "number",                           null: false
+    t.string   "number_for_index",                 null: false
+    t.boolean  "primary",          default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "phones", ["address_id"], name: "index_phones_on_address_id", using: :btree
+  add_index "phones", ["customer_id"], name: "index_phones_on_customer_id", using: :btree
+  add_index "phones", ["number_for_index"], name: "index_phones_on_number_for_index", using: :btree
+
   create_table "staff_events", force: true do |t|
     t.integer  "staff_member_id", null: false
     t.string   "type",            null: false
@@ -86,6 +100,9 @@ ActiveRecord::Schema.define(version: 20180508235404) do
   add_index "staff_members", ["family_name_kana", "given_name_kana"], name: "index_staff_members_on_family_name_kana_and_given_name_kana", using: :btree
 
   add_foreign_key "addresses", "customers", name: "addresses_customer_id_fk"
+
+  add_foreign_key "phones", "addresses", name: "phones_address_id_fk"
+  add_foreign_key "phones", "customers", name: "phones_customer_id_fk"
 
   add_foreign_key "staff_events", "staff_members", name: "staff_events_staff_member_id_fk"
 

@@ -2,6 +2,7 @@
 class Address < ActiveRecord::Base
   include StringNormalizer
 
+  has_many :phones, -> { order(:id) }, dependent: :destroy, autosave: true
   belongs_to :customer # belongs_toでcustomerモデルを参照している
 
   before_validation do

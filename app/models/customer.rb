@@ -7,6 +7,12 @@ class Customer < ActiveRecord::Base
   has_one :home_address, dependent: :destroy, autosave: true
   # work_addressとcustomerを1対1の関連付け
   has_one :work_address, dependent: :destroy, autosave: true
+  has_many :phones, dependent: :destroy
+  # ->でProcオブジェクトでブロックを作成し、has_manyの第二引数に指定することで、
+  # 関連付けのスコープを作成。(検索の付帯条件)
+  # ここでの検索の付帯条件は個人電話番号だけの絞り込み(address_idがnullのもの)に使われている
+  has_many :personal_phones, -> { where(address_id: nil).order(:id)},
+                class_name: 'Phone', autosave: true
 
   # EmailHolderモジュールへ移管
   # before_validation do
